@@ -1,5 +1,6 @@
-# Chalk
-https://www.curseforge.com/minecraft/mc-mods/chalk-fabric
+# Chalk (Fabric/Quilt)
+[![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png "Modrinth")](https://modrinth.com/mod/chalk)
+[![](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/curseforge_64h.png "Curseforge")](https://www.curseforge.com/minecraft/mc-mods/chalk-fabric)
 
 Fabric port of the Minecraft mod [Chalk](https://github.com/mortuusars/Chalk) by mortuusars with some additions and 1.17 adjustments. Thank you very much for creating the original Forge version and the permission to port Chalk to fabric!
 
