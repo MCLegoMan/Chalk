@@ -1,7 +1,9 @@
-package de.dafuqs.chalk.blocks;
+package de.dafuqs.chalk.common.blocks;
 
-import de.dafuqs.chalk.Chalk;
-import de.dafuqs.chalk.config.ChalkConfig;
+import de.dafuqs.chalk.client.config.ChalkConfigHelper;
+import de.dafuqs.chalk.common.Chalk;
+import de.dafuqs.chalk.client.config.ChalkConfig;
+import de.dafuqs.chalk.common.data.ChalkData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,8 +30,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class ChalkMarkBlock extends Block {
     
@@ -75,10 +75,9 @@ public class ChalkMarkBlock extends Block {
     @Override
     protected void spawnBreakParticles(World world, PlayerEntity player, BlockPos pos, BlockState state) {
         if (!world.isClient)
-            world.playSound(null, pos, SoundEvents.BLOCK_WART_BLOCK_HIT, SoundCategory.BLOCKS, 0.5f, new Random().nextFloat() * 0.2f + 0.8f);
+            world.playSound(null, pos, SoundEvents.BLOCK_WART_BLOCK_HIT, SoundCategory.BLOCKS, 0.5f, ChalkData.RANDOM.nextFloat() * 0.2f + 0.8f);
         else{
-            Random r = new Random();
-            if (ChalkConfig.EMIT_PARTICLES) world.addParticle(ParticleTypes.CLOUD,  pos.getX() + (0.5 * (r.nextFloat() + 0.15)), pos.getY() + 0.3, pos.getZ() + (0.5 * (r.nextFloat() + 0.15)), 0.0D, 0.0D, 0.0D);
+            if ((boolean)ChalkConfigHelper.getConfig("emit_particles")) world.addParticle(ParticleTypes.CLOUD,  pos.getX() + (0.5 * (ChalkData.RANDOM.nextFloat() + 0.15)), pos.getY() + 0.3, pos.getZ() + (0.5 * (ChalkData.RANDOM.nextFloat() + 0.15)), 0.0D, 0.0D, 0.0D);
         }
     }
 

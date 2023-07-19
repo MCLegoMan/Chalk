@@ -1,8 +1,9 @@
-package de.dafuqs.chalk.items;
+package de.dafuqs.chalk.common.items;
 
-import de.dafuqs.chalk.Chalk;
-import de.dafuqs.chalk.blocks.ChalkMarkBlock;
-import de.dafuqs.chalk.config.ChalkConfig;
+import de.dafuqs.chalk.client.config.ChalkConfigHelper;
+import de.dafuqs.chalk.common.Chalk;
+import de.dafuqs.chalk.common.blocks.ChalkMarkBlock;
+import de.dafuqs.chalk.common.data.ChalkData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -21,8 +22,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 public class ChalkItem extends Item {
 
@@ -54,8 +53,7 @@ public class ChalkItem extends Item {
         }
 
         if (world.isClient) {
-            Random r = new Random();
-            if (ChalkConfig.EMIT_PARTICLES) world.addParticle(ParticleTypes.CLOUD, markPosition.getX() + (0.5 * (r.nextFloat() + 0.4)), markPosition.getY() + 0.65, markPosition.getZ() + (0.5 * (r.nextFloat() + 0.4)), 0.0D, 0.005D, 0.0D);
+            if ((boolean)ChalkConfigHelper.getConfig("emit_particles")) world.addParticle(ParticleTypes.CLOUD, markPosition.getX() + (0.5 * (ChalkData.RANDOM.nextFloat() + 0.4)), markPosition.getY() + 0.65, markPosition.getZ() + (0.5 * (ChalkData.RANDOM.nextFloat() + 0.4)), 0.0D, 0.005D, 0.0D);
             return ActionResult.SUCCESS;
         }
 
@@ -73,7 +71,7 @@ public class ChalkItem extends Item {
                 stack.damage(1, player, (e) -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             }
 
-            world.playSound(null, markPosition, SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundCategory.BLOCKS, 0.6f, world.random.nextFloat() * 0.2f + 0.8f);
+            world.playSound(null, markPosition, SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundCategory.BLOCKS, 0.6f, ChalkData.RANDOM.nextFloat() * 0.2f + 0.8f);
             return ActionResult.CONSUME;
         }
 
