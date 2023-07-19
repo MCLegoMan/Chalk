@@ -2,8 +2,8 @@ package de.dafuqs.chalk.common.blocks;
 
 import de.dafuqs.chalk.client.config.ChalkConfigHelper;
 import de.dafuqs.chalk.common.Chalk;
-import de.dafuqs.chalk.client.config.ChalkConfig;
 import de.dafuqs.chalk.common.data.ChalkData;
+import de.dafuqs.chalk.common.pattern.ChalkPatterns;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,11 +13,13 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
@@ -37,7 +39,7 @@ public class ChalkMarkBlock extends Block {
     
     public static final DirectionProperty FACING = Properties.FACING;
     public static final IntProperty ORIENTATION = IntProperty.of("orientation", 0, 8);
-
+    public static final EnumProperty<ChalkPatterns> CHALK_PATTERN = EnumProperty.of("pattern", ChalkPatterns.class);
     private static final VoxelShape DOWN_AABB = Block.createCuboidShape(1.5D, 15.5D, 1.5D, 14.5D, 16D, 14.5D);
     private static final VoxelShape UP_AABB = Block.createCuboidShape(1.5D, 0D, 1.5D, 14.5D, 0.5D, 14.5D);
     private static final VoxelShape SOUTH_AABB = Block.createCuboidShape(1.5D, 1.5D, 0D, 14.5D, 14.5D, 0.5D);
@@ -48,7 +50,7 @@ public class ChalkMarkBlock extends Block {
     public ChalkMarkBlock(Settings settings, DyeColor dyeColor) {
         super(settings);
         this.dyeColor = dyeColor;
-        this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(ORIENTATION, 0));
+        this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(ORIENTATION, 0).with(CHALK_PATTERN, ChalkPatterns.NORMAL));
     }
 
     @Override
@@ -58,7 +60,7 @@ public class ChalkMarkBlock extends Block {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, ORIENTATION);
+        builder.add(FACING, ORIENTATION, CHALK_PATTERN);
         super.appendProperties(builder);
     }
 

@@ -7,9 +7,13 @@ import de.dafuqs.chalk.common.data.ChalkData;
 import de.dafuqs.chalk.common.data.ChalkLoggerType;
 import de.dafuqs.chalk.common.items.ChalkItem;
 import de.dafuqs.chalk.common.items.GlowChalkItem;
+import de.dafuqs.chalk.common.pattern.ChalkPatterns;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import net.fabricmc.fabric.api.gamerule.v1.rule.EnumRule;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -25,10 +29,13 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.GameRules;
 
 import java.util.HashMap;
 
 public class Chalk implements ModInitializer {
+	public static GameRules.Key<EnumRule<ChalkPatterns>> chalkDefaultPattern = GameRuleRegistry.register("chalk:defaultPattern", GameRules.Category.MISC, GameRuleFactory.createEnumRule(ChalkPatterns.NORMAL));
+	public static GameRules.Key<GameRules.BooleanRule> chalkCanChangePatterns = GameRuleRegistry.register("chalk:canChangePatterns", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true));
 	
 	public static class ChalkVariant {
 		String colorString;
@@ -123,7 +130,7 @@ public class Chalk implements ModInitializer {
 		 * this allows chalk to use the "chalk" mod to use the chalk namespace for all functionality
 		 * while still having it configurable / backwards compatible
 		 */
-		
+
 		ChalkVariant chalkVariant;
 		for (DyeColor dyeColor : DyeColor.values()) {
 			int color = dyeColors.get(dyeColor);

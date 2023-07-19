@@ -88,5 +88,8 @@
   "gui.chalk.config.reset": "Reset Config",
   "gui.chalk.config.reset.hover": "Resets all config values",
   "gui.chalk.config.back": "Back",
-  "gui.chalk.config.back.hover": "Saves config and returns to the previous screen"
+  "gui.chalk.config.back.hover": "Saves config and returns to the previous screen",
+
+  "chalk.item.pattern": "Pattern: %s",
+  "message.chalk.change_pattern": "Chalk pattern was changed to: %s"
 }
